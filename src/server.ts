@@ -11,9 +11,28 @@ import {Car,cars as cars_list} from './cars';
   //default port to listen
   const port = 8082;
 
+  //use middleware so post bodies 
+  //are accessable as req.body.{{variable}}
+  app.use(bodyParser.json()); 
+
   // Root URI call
   app.get("/",(req: Request,res: Response) => {
       res.status(200).send("welcome to cloud!");
+  });
+
+  //checking get request for name
+  app.get("/api/:name",(req: Request,res: Response)=>{
+      let {name} = req.params;
+  //400 Bad request
+      if(!name){
+          return res.status(400)
+                    .send(`name is required`);
+      }
+      
+      return res.status(200)
+                .send(`welcome to cloud, ${name}!`);
+
+      
   });
 
 
