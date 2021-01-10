@@ -52,10 +52,10 @@ import {Car,cars as cars_list} from './cars';
         class: req.body.class
 
     }
-    let sample = req.body.make;
     
-     if(!req.body.name||req.body.name.length<3){
-         res.status(400).send(`Name is required and should be minium 3 characters`);
+    
+     if(!req.body.class||req.body.class.length>1){
+         res.status(400).send(`class is required and should be 1 character`);
          return;
      }
       cars.push(car);
