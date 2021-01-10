@@ -1,11 +1,13 @@
 import express, { Router, Response, Request} from 'express';
 import  bodyParser from 'body-parser';
 
+
 import {Car,cars as cars_list} from './cars';
+
 
 (async () => {
   let cars:Car[] = cars_list;
-   
+  
   //create an express application;
   const app = express();
   //default port to listen
@@ -13,7 +15,9 @@ import {Car,cars as cars_list} from './cars';
 
   //use middleware so post bodies 
   //are accessable as req.body.{{variable}}
-  app.use(bodyParser.json()); 
+  app.use(bodyParser.json());
+ 
+  
 
   // Root URI call
   app.get("/",(req: Request,res: Response) => {
@@ -34,16 +38,26 @@ import {Car,cars as cars_list} from './cars';
 
       
   });
+  //post endpoint for cars.
   app.post('/api/cars',(req,res)=>{
+    
+     
+      
       const car = {
-          id: cars.length+1,
-          make: req.body.make,
-          type: req.body.type,
-          modelyrno: req.body.modelyrno,
-          cost: req.body.cost,
-          class: req.body.class
+        id: cars.length+1,
+        make: req.body.make,
+        type: req.body.type,
+        modelyrno: req.body.modelyrno,
+        cost: req.body.cost,
+        class: req.body.class
 
-      }
+    }
+    let sample = req.body.make;
+    
+     if(!req.body.name||req.body.name.length<3){
+         res.status(400).send(`Name is required and should be minium 3 characters`);
+         return;
+     }
       cars.push(car);
       res.send(cars);
   })
