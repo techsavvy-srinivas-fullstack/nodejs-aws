@@ -34,6 +34,19 @@ import {Car,cars as cars_list} from './cars';
 
       
   });
+  app.post('/api/cars',(req,res)=>{
+      const car = {
+          id: cars.length+1,
+          make: req.body.make,
+          type: req.body.type,
+          modelyrno: req.body.modelyrno,
+          cost: req.body.cost,
+          class: req.body.class
+
+      }
+      cars.push(car);
+      res.send(cars);
+  })
 
 
 //Start the server
